@@ -1,0 +1,121 @@
+<!-- ***** BEGIN LICENSE BLOCK *****
+   - Version: MPL 1.1
+   -
+   - The contents of this file are subject to the Mozilla Public License Version
+   - 1.1 (the "License"); you may not use this file except in compliance with
+   - the License. You may obtain a copy of the License at
+   - http://www.mozilla.org/MPL/
+   -
+   - Software distributed under the License is distributed on an "AS IS" basis,
+   - WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+   - for the specific language governing rights and limitations under the
+   - License.
+   -
+   - The Original Code is Raindrop.
+   -
+   - The Initial Developer of the Original Code is
+   - Mozilla Messaging, Inc..
+   - Portions created by the Initial Developer are Copyright (C) 2009
+   - the Initial Developer. All Rights Reserved.
+   -
+   - Contributor(s):
+   - -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link REL="SHORTCUT ICON" HREF="i/favicon.ico">
+    <title>CouchMail</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <link type="text/css" rel="stylesheet" href="couchmail.css">
+    <script type="text/javascript" src="script/lib/jquery-1.6.1.min.js"></script>
+  	<script type="text/javascript" src="script/lib/jquery.mustache.js"></script>
+  	<script type="text/javascript" src="script/lib/microevent.js"></script>
+  	<script type="text/javascript" src="script/lib/underscore.js"></script>
+  	<script type="text/javascript" src="script/lib/sammy-0.7.0pre.js"></script>
+  	<script type="text/javascript" src="script/lib/jquery.couch2.js"></script>
+  	<script type="text/javascript" src="script/util.js"></script>
+  	<script type="text/javascript" src="script/site.js"></script>
+</head>
+<body>
+  <div id="background"></div>
+  <div id="wrapper">
+    <div id="header">
+      <div class="row">
+        <div class="c1 search">
+        </div>
+        <div class="c2">
+          <li class="account">Messages</li>
+          <li>compose</li>
+          <li>organize</li>
+        </div>
+        <div class="c3 logo">
+        </div>
+      </div>
+    </div>
+
+    <div id="messages" class="inflow templateContainer">     
+    </div>
+
+    <div class="widgets">
+      <div class="row">
+        <div class="c3 accounts">
+          <ul>
+            <li><span class="selected">Inflow</span></li>
+            <!-- <li><span class="placeholder">top level option</span></li>
+              <li class="indented">indented option</li> -->
+          </ul>
+        </div>
+      </div>
+
+      <!-- <div class="row">
+        <div class="c3 folders">
+          <div class="title">submenu</div>
+            <li class="pinned">has dot</li>
+            <li>no dot</li>
+        </div>
+      </div> -->
+    </div>
+
+    <div id="convDisplay">
+    </div>
+  </div>
+
+<script id="messagesTemplate" type="text/mustache">
+  {{#messages}}
+  <div data-blade-jig="id15" class="row convSummary">
+    <div data-blade-jig="id2" class="c3">
+      <span class="date">{{date}}</span>
+      <span data-blade-jig="id3" class="actions">hide delete</span>
+    </div>
+    <div class="c1">
+      <div class="avatar"><!----></div>
+      <div data-blade-jig="id4" class="name">{{from}}</div>
+      <div data-blade-jig="id5" class="twitterActions">
+        <li>reply</li><li>forward</li><li>★</li>
+      </div>
+    </div>
+    <div class="c2">
+      <div class="subject"><a class="list subject" href="#">{{subject}}</a></div>
+      <div data-blade-jig="id6" class="messageBody">{{body}}</div>
+      {{#replies}}
+      <div data-blade-jig="id7" class="replies">
+        <div data-blade-jig="id11" class="reply">
+          <div class="arrow"></div>
+          <div data-blade-jig="id9" class="messageReply noArrow"><span class="name">max ogden</span>{{body}}</div>
+        </div>
+      </div>
+      {{/replies}}
+    </div> 
+    {{#replyCount}}
+    <div data-blade-jig="id14" class="c3">
+      <div class="more"><a href="#">view all replies (<span class="totalReplies">{{count}}</span>)</a></div>
+    </div>
+    {{/replyCount}}
+  </div>
+  </div>
+  {{/messages}}
+</script>
+
+</body>
+</html>
