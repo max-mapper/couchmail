@@ -3,7 +3,7 @@ var couchapp = require('couchapp')
   ;
 
 ddoc = 
-  { _id:'_design/app'
+  { _id:'_design/couchmail'
   , rewrites: 
     [ {from:"/", to:'index.html'}
     , {from:"cache.manifest", to:'_show/cache'}
