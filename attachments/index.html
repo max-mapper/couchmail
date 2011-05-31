@@ -57,7 +57,7 @@
     <div id="messages" class="inflow templateContainer">     
     </div>
 
-    <div class="widgets">
+    <div class="widgets hidden">
       <div class="row">
         <div class="c3 accounts">
           <ul>
@@ -77,7 +77,7 @@
       </div> -->
     </div>
 
-    <div id="convDisplay">
+    <div id="convDisplay" class="visible">
     </div>
   </div>
 
@@ -97,7 +97,7 @@
     </div>
     <div class="c2">
       <div class="subject"><a class="list subject" href="#">{{subject}}</a></div>
-      <div data-blade-jig="id6" class="messageBody">{{body}}</div>
+      <div data-blade-jig="id6" class="messageBody">{{{body}}}</div>
       {{#replies}}
       <div data-blade-jig="id7" class="replies">
         <div data-blade-jig="id11" class="reply">
@@ -115,6 +115,43 @@
   </div>
   </div>
   {{/messages}}
+</script>
+
+<script id="conversationTemplate" type="text/mustache">
+  <div class="conversation template widgets fullMessage" data-id="fullConversation">
+    <div class="row">
+      <div class="c2">
+        <span class="date button">move conversation &#9660;</span>
+      </div>
+      <div class="c1">
+        <div class="actions"><a href="#">hide delete</a></div>
+      </div>
+      <div class="c3">
+        <span class="subject">{{subject}}</span>
+      </div>
+    </div>
+    {{#messages}}
+      <div class="row fullReply">
+        <div class="message" onclick="$(this).next().toggleClass('show')">
+          <div class="c2">
+            <div class="avatar"></div>
+            <div class="from name">{{from}} <span class="date">on {{date}}</span></div>
+          </div>
+          <div class="c1">
+            <div class="actions"><a class="fullConvClose" href="#close">close</a></div>
+          </div>
+        </div>
+        <div class="c3"> 
+          <div class="messageBody">
+              <a class="quoteToggle" href="#quoteToggle">Show Quote</a>
+              <!-- investigate type class-->
+              <div class="quoteContent">{{{body}}}</div>
+            <div class="actions">reply forward</div>
+          </div>
+        </div>
+      </div>
+    {{/messages}}
+  </div>
 </script>
 
 </body>

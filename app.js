@@ -40,7 +40,7 @@ ddoc.views = {
           from: doc.headers.from[0]
         }
         if (doc.parts) {
-          message.body = doc.parts[0].bodytext;
+          message.body = doc.parts[1].bodytext;
         }
         emit(date, message);
       }

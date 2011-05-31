@@ -18,6 +18,7 @@ app.sammy = $.sammy(app.container, function() {
       })
       
       util.render('messages', 'messages', {data: {messages: messages}});
+      util.render('conversation', 'convDisplay', {data: {subject: "woo", messages: messages}});
       
     })
   })
