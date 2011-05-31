@@ -24,18 +24,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link REL="SHORTCUT ICON" HREF="i/favicon.ico">
-    <title>CouchMail</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-    <link type="text/css" rel="stylesheet" href="couchmail.css">
-    <script type="text/javascript" src="script/lib/jquery-1.6.1.min.js"></script>
-  	<script type="text/javascript" src="script/lib/jquery.mustache.js"></script>
-  	<script type="text/javascript" src="script/lib/microevent.js"></script>
-  	<script type="text/javascript" src="script/lib/underscore.js"></script>
-  	<script type="text/javascript" src="script/lib/sammy-0.7.0pre.js"></script>
-  	<script type="text/javascript" src="script/lib/jquery.couch2.js"></script>
-  	<script type="text/javascript" src="script/util.js"></script>
-  	<script type="text/javascript" src="script/site.js"></script>
+  <link REL="SHORTCUT ICON" HREF="i/favicon.ico">
+  <title>CouchMail</title>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  <link type="text/css" rel="stylesheet" href="couchmail.css">
+  <script type="text/javascript" src="script/lib/jquery-1.6.1.min.js"></script>
+  <script type="text/javascript" src="script/lib/jquery.mustache.js"></script>
+  <script type="text/javascript" src="script/lib/microevent.js"></script>
+  <script type="text/javascript" src="script/lib/underscore.js"></script>
+  <script type="text/javascript" src="script/lib/sammy-0.7.0pre.js"></script>
+  <script type="text/javascript" src="script/lib/jquery.couch2.js"></script>
+  <script type="text/javascript" src="script/lib/jquery.timeago.js"></script>
+  <script type="text/javascript" src="script/util.js"></script>
+  <script type="text/javascript" src="script/msg.js"></script>
+  <script type="text/javascript" src="script/site.js"></script>
 </head>
 <body>
   <div id="background"></div>
@@ -83,32 +85,32 @@
 
 <script id="messagesTemplate" type="text/mustache">
   {{#messages}}
-  <div data-blade-jig="id15" class="row convSummary">
-    <div data-blade-jig="id2" class="c3">
+  <div class="row convSummary">
+    <div class="c3">
       <span class="date">{{date}}</span>
-      <span data-blade-jig="id3" class="actions">hide delete</span>
+      <span class="actions">hide delete</span>
     </div>
     <div class="c1">
       <div class="avatar"><!----></div>
-      <div data-blade-jig="id4" class="name">{{from}}</div>
-      <div data-blade-jig="id5" class="twitterActions">
+      <div class="name">{{from}}</div>
+      <div class="twitterActions">
         <li>reply</li><li>forward</li><li>★</li>
       </div>
     </div>
     <div class="c2">
       <div class="subject"><a class="list subject" href="#">{{subject}}</a></div>
-      <div data-blade-jig="id6" class="messageBody">{{{body}}}</div>
+      <div class="messageBody">{{{body}}}</div>
       {{#replies}}
-      <div data-blade-jig="id7" class="replies">
-        <div data-blade-jig="id11" class="reply">
+      <div class="replies">
+        <div class="reply">
           <div class="arrow"></div>
-          <div data-blade-jig="id9" class="messageReply noArrow"><span class="name">max ogden</span>{{body}}</div>
+          <div class="messageReply noArrow"><span class="name">max ogden</span>{{body}}</div>
         </div>
       </div>
       {{/replies}}
     </div> 
     {{#replyCount}}
-    <div data-blade-jig="id14" class="c3">
+    <div class="c3">
       <div class="more"><a href="#">view all replies (<span class="totalReplies">{{count}}</span>)</a></div>
     </div>
     {{/replyCount}}

@@ -11,7 +11,7 @@ app.sammy = $.sammy(app.container, function() {
   
   this.bind('run', function(e) {    
     
-    couch.get(app.config.baseURL + "_view/by_date?descending=true").then(function(messages) {
+    msg.latest().then(function(messages) {
       
       messages = messages.rows.map(function(message) {
         return message.value;
@@ -27,7 +27,11 @@ app.sammy = $.sammy(app.container, function() {
 
 app.after = {
   messages: function() {
-
+    $( '.timeago' ).timeago();
+    $('.convSummary').click(function(e) {
+      $(this).addClass('highlight');
+      e.preventDefault();
+    })
   }
 }
 

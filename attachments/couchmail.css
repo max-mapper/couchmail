@@ -24,7 +24,7 @@ body{width:100%;min-height:100%;height:100%;background-color:#fafafa;overflow-y:
 .hotspotOne{width:140px;height:140px;line-height:140px;-moz-border-radius:70px;-webkit-border-radius:70px;}
 .hotspotTwo{width:120px;height:120px;line-height:120px;-moz-border-radius:60px;-webkit-border-radius:60px;}
 .hotspotThree{width:90px;height:90px;line-height:90px;-moz-border-radius:45px;-webkit-border-radius:45px;}
-.inflow{box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;width:480px;background:#fafafa;padding-bottom:55px;padding-top:55px;float:left;border-right:1px solid #ccc;z-index:1;}
+.inflow{box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;width:480px;background:#fafafa;float:left;border-right:1px solid #ccc;z-index:1;}
 .inflow .row{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0 0 10px;}
 .inflow .row .actions,.inflow .row .more,.widgets.fullMessage .row .actions,.row .more a.list.subject{float:right;font-size:11px;color:#888;}
 .inflow .row .more a,.row .more a.list.subject{font-weight:400;color:#000;text-decoration:none;}
@@ -34,7 +34,7 @@ body{width:100%;min-height:100%;height:100%;background-color:#fafafa;overflow-y:
 .row .name{display:inline-block;vertical-align:top;padding:0 0 0 5px;}
 .row .c1 .name{height:24px;width:112px;overflow:hidden;}
 .inflow .row .subject{font-size:14px;font-weight:700;max-height:24px;overflow:hidden;}
-.inflow .row .messageBody{color:#333;line-height:18px;overflow:hidden;}
+.inflow .row .messageBody{color:#333;line-height:18px;overflow:hidden; max-height: 100px}
 .inflow .row .messageReply,.inflow .row .messageAttachments{color:#666;background-color:rgba(204, 204, 204, 0.35);font-size:11px;line-height:18px;position:relative;margin:10px 0 0;padding:5px;}
 .inflow .row .messageReply.noArrow{margin-top:2px;width:300px;overflow:hidden;}
 .replies > .reply:nth-child(1) > .arrow{display:block;position:absolute;left:20px;top:-14px;}
@@ -60,7 +60,7 @@ body{width:100%;min-height:100%;height:100%;background-color:#fafafa;overflow-y:
 #convDisplay{float:left;margin-right:0;top:0;right:0;width:480px;background-color:#fafafa;z-index:0;background-image:url("i/ajax-loader.gif");background-repeat:no-repeat;background-position:10px 65px;min-height:81px;display:none;}
 #convDisplay .row{background-color:#fff;}
 .widgets.fullMessage .row{margin:0;padding:10px 0;}
-.widgets.fullMessage .row:first-child{border-top:1px solid #ccc;margin:55px 0 0;padding:0;}
+.widgets.fullMessage .row:first-child{border-top:1px solid #ccc;margin:0;padding:0;}
 .widgets.fullMessage .message{max-height:24px;float:left;cursor:pointer;}
 .widgets.fullMessage .subject{font-size:14px;font-weight:700;}
 .widgets.fullMessage .row.fullReply .c3 .messageBody{color:#333;overflow:hidden;line-height:18px;display:none;margin:10px 0 0;}
