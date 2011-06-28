@@ -39,9 +39,11 @@ ddoc.views = {
           date: date,
           from: doc.headers.from[0]
         }
-        if (doc.parts) {
-          message.body = doc.parts[1].bodytext;
-        }
+
+        if (doc.parts) { message.body = doc.parts[1].bodytext};
+        if (doc.headers['message-id']) message.messageId = doc.headers['message-id'][0];
+        if (doc.headers.references) message.references = doc.headers.references[0];
+
         emit(date, message);
       }
     }

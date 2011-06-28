@@ -38,7 +38,6 @@ var util = function() {
     } else {
       targetDom.html( html );
     }
-    if (template in app.after) app.after[template]();
   }
 
   function formatMetadata(data) {
@@ -77,11 +76,27 @@ var util = function() {
     return baseURL;
   }
   
+  function threadMessages(messages) {
+    app.messages = {};
+    messages.rows.map(function(message) {
+      app.messages[message.id] = message.value;
+    })
+    
+    app.thread = mail.messageThread().thread(_.keys(app.messages).map(
+      function(message) { 
+        var id = message;
+        var message = app.messages[id];
+        return mail.message(message.subject, message.messageId, id, message.references);
+      }
+    ));
+  }
+  
   return {
     Emitter:Emitter,
     inURL: inURL,
     render: render,
     formatMetadata:formatMetadata,
-    getBaseURL:getBaseURL
+    getBaseURL:getBaseURL,
+    threadMessages: threadMessages
   };
 }();

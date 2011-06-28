@@ -32,9 +32,10 @@
   <script type="text/javascript" src="script/lib/jquery.mustache.js"></script>
   <script type="text/javascript" src="script/lib/microevent.js"></script>
   <script type="text/javascript" src="script/lib/underscore.js"></script>
-  <script type="text/javascript" src="script/lib/sammy-0.7.0pre.js"></script>
+  <script type="text/javascript" src="script/lib/sammy-0.6.3.min.js"></script>
   <script type="text/javascript" src="script/lib/jquery.couch2.js"></script>
   <script type="text/javascript" src="script/lib/jquery.timeago.js"></script>
+  <script type="text/javascript" src="script/lib/jwz.js"></script>
   <script type="text/javascript" src="script/util.js"></script>
   <script type="text/javascript" src="script/msg.js"></script>
   <script type="text/javascript" src="script/site.js"></script>
@@ -85,7 +86,7 @@
 
 <script id="messagesTemplate" type="text/mustache">
   {{#messages}}
-  <div class="row convSummary">
+  <div class="row convSummary" data-id="{{md5}}">
     <div class="c3">
       <span class="date">{{date}}</span>
       <span class="actions">hide delete</span>
@@ -98,7 +99,7 @@
       </div>
     </div>
     <div class="c2">
-      <div class="subject"><a class="list subject" href="#">{{subject}}</a></div>
+      <div class="subject"><span class="list subject">{{subject}}</span></div>
       <div class="messageBody">{{{body}}}</div>
       {{#replies}}
       <div class="replies">
