@@ -58,6 +58,13 @@ var util = function() {
     out = out + '</dl>';
     return out;
   }
+  
+  function plaintextToHTML(body) {
+    var lines = body.split(/\n/);
+    return _.map(lines, function(line) {
+      return $.trim(line);
+    }).join('<br>\n');
+  }
 
   function getBaseURL(url) {
     var baseURL = "";
@@ -96,6 +103,7 @@ var util = function() {
     inURL: inURL,
     render: render,
     formatMetadata:formatMetadata,
+    plaintextToHTML: plaintextToHTML,
     getBaseURL:getBaseURL,
     threadMessages: threadMessages
   };

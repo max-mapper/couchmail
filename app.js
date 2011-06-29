@@ -35,12 +35,15 @@ ddoc.views = {
         var date = JSON.stringify(new Date(doc.headers.date[0]));
         var message = {
           subject: doc.headers.subject[0],
-          body: doc.bodytext,
           date: date,
+          body: doc.bodytext,
           from: doc.headers.from[0]
         }
-
-        if (doc.parts) { message.body = doc.parts[1].bodytext};
+        if (doc.parts && doc.parts.length > 0) {
+          for (var i = 0; i < doc.parts.length; i++) {
+            if (JSON.stringify(doc.parts[i].headers).match("text/html")) message.body = doc.parts[i].bodytext;
+          }
+        }
         if (doc.headers['message-id']) message.messageId = doc.headers['message-id'][0];
         if (doc.headers.references) message.references = doc.headers.references[0];
 

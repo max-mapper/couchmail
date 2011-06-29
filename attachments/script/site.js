@@ -46,6 +46,9 @@ app.after = {
       conversation = conversation.map(function(message) {
         return app.messages[message.md5];
       })
+      _.each(conversation, function(message) {
+        message.body = util.plaintextToHTML(message.body);
+      })
       if (conversation) util.render('conversation', 'convDisplay', {data: {subject: conversation[0].subject, messages: conversation}});
     }
     if (app.thread) {

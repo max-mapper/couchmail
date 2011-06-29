@@ -17,18 +17,22 @@
     
       function getConversation(md5) {
         var child = this.getSpecificChild(md5);
-        if(child) return child.flattenChildren();
+        var flattened = [];
+        if(child && child.flattenChildren()) flattened = child.flattenChildren();
+        if(child.message) flattened.unshift(child.message);
+        return flattened;
       }
       
       function flattenChildren() {
         var messages = [];
-        if (this.children.length === 0 && this.message) {
-          messages.push(this.message);
-        }
         _.each(this.children, function(child) {
           if (child.message) messages.push(child.message);
           var nextChildren = child.flattenChildren();
-          if (nextChildren) messages.push(nextChildren);
+          if (nextChildren) {
+            _.each(nextChildren, function(nextChild) {
+              messages.push(nextChild);
+            })
+          }
         });
         if (messages.length > 0) return messages;
       }
