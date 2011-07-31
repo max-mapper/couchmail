@@ -66,7 +66,10 @@ app.after = {
      ,function(e) { $(e.target).removeClass('menuHover')}
     );
     $('.menuOption').click(function(e) {
-      console.log(e);
+      var docid = $(e.target).attr('data-id');
+      couch.get(app.config.baseURL + "api/" + docid).then(function(message) {
+        $('#messageDisplay').html(JSON.stringify(message))
+      })
       return false;
     })
   }
