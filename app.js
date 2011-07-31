@@ -8,6 +8,7 @@ ddoc =
     [ {from:"/", to:'index.html'}
     , {from:"cache.manifest", to:'_show/cache'}
     , {from:"favicon.png", to:'favicon.ico'}
+    , {from:"/api/search", to:"../../../_search/couchdb-user-mail/couchdb-user-mail/_search"} // elasticsearch
     , {from:"/api", to:'../../'}    
     , {from:"/api/*", to:'../../*'}
     , {from:"/*", to:'*'}

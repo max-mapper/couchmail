@@ -18,18 +18,19 @@ app.handler = function(route) {
 };
 
 app.after = {
-  home: function() {    
-    msg.latest().then(function(messages) {
-      var firsts = app.thread.children.map(function(child) {
-        if (child.message) {
-          return child.message;
-        } else if (child.children.length > 0) {
-          return child.children[0].message;
-        }
-      })
-      util.render('messages', 'messages', {data: {messages: firsts}});
-      app.after['messages']();
-    })
+  home: function() { 
+    util.bindAutocomplete($('#search'))   
+    // msg.latest().then(function(conversations) {
+    //   console.log(conversations)
+    //   var firsts = conversations.children.map(function(child) {
+    //     if (child.message) {
+    //       return child.message;
+    //     } else if (child.children.length > 0) {
+    //       return child.children[0].message;
+    //     }
+    //   })
+    //   util.render('messages', 'messages', {data: {messages: firsts}});
+    // })
   },
   messages: function() {
     $( '.timeago' ).timeago();
@@ -40,11 +41,11 @@ app.after = {
       e.preventDefault();
     })
   },
-  conversation: function(messageMD5) {
+  conversation: function(messageId) {
     function renderConversation() {
-      var conversation = app.thread.getConversation(messageMD5);
+      var conversation = app.thread.getConversation(messageId);
       conversation = conversation.map(function(message) {
-        return app.messages[message.md5];
+        return app.messages[message.id];
       })
       _.each(conversation, function(message) {
         message.body = util.plaintextToHTML(message.body);
@@ -54,10 +55,20 @@ app.after = {
     if (app.thread) {
       renderConversation();
     } else {
-      msg.latest().then(function(messages) {
+      msg.latest().then(function(conversations) {
         renderConversation();
       })
     }
+  },
+  searchResults: function() {
+    $('.menuOption').hover(
+      function(e) { $(e.target).addClass('menuHover')}
+     ,function(e) { $(e.target).removeClass('menuHover')}
+    );
+    $('.menuOption').click(function(e) {
+      console.log(e);
+      return false;
+    })
   }
 }
 

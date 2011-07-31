@@ -44,13 +44,15 @@
   <div id="background"></div>
   <div id="wrapper">
     <div id="header">
-      <div class="row">
-        <div class="c1 search">
+        <div class="autocompleter">
+          <input id="search" placeholder="Search" />
+          <div class="loading"></div>
+          <ul id="search-list" class="optionsMenu search-list" data-role="listview" data-inset="true" data-theme="c"></ul>
         </div>
         <div class="c2">
           <li class="account">Messages</li>
-          <li>compose</li>
-          <li>organize</li>
+          <!-- <li>compose</li>
+          <li>organize</li> -->
         </div>
         <div class="c3 logo">
         </div>
@@ -86,7 +88,7 @@
 
 <script id="messagesTemplate" type="text/mustache">
   {{#messages}}
-  <div class="row convSummary" data-id="{{md5}}">
+  <div class="row convSummary" data-id="{{id}}">
     <div class="c3">
       <span class="date">{{date}}</span>
       <span class="actions">hide delete</span>
@@ -155,6 +157,12 @@
       </div>
     {{/messages}}
   </div>
+</script>
+
+<script id="searchResultsTemplate" type="text/mustache">
+  {{#results}}
+  <li data-icon="false"><a data-id="{{id}}"class="menuOption">{{subject}}</a></li>
+  {{/results}}
 </script>
 
 </body>

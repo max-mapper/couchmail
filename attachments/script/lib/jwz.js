@@ -1,22 +1,29 @@
+// example usage: 
+// thread = mail.messageThread().thread(messages.map(
+//   function(message) { 
+//     return mail.message(message.subject, message.messageId, message.references);
+//   }
+// ));
+// conversation = thread.getConversation(messageId);
+
 (function() {
 
-  function message(subject, id, md5, references) {
-    return function(subject, id, md5, references) {
+  function message(subject, id, references) {
+    return function(subject, id, references) {
       return {
         subject: subject,
         id: id,
-        md5: md5,
         references: util.parseReferences(references)
       }
-    }(subject, id, md5, references);
+    }(subject, id, references);
   }
 
   function messageContainer(message) {
     return function(message) {
       var children = [];
     
-      function getConversation(md5) {
-        var child = this.getSpecificChild(md5);
+      function getConversation(id) {
+        var child = this.getSpecificChild(id);
         var flattened = [];
         if(child && child.flattenChildren()) flattened = child.flattenChildren();
         if(child.message) flattened.unshift(child.message);
@@ -37,12 +44,12 @@
         if (messages.length > 0) return messages;
       }
       
-      function getSpecificChild(md5) {
+      function getSpecificChild(id) {
         var instance = this;
-        if (instance.message && instance.message.md5 == md5) return instance;
+        if (instance.message && instance.message.id == id) return instance;
         var specificChild = null;
         _.each(instance.children, function(child) {
-          var found = child.getSpecificChild(md5);
+          var found = child.getSpecificChild(id);
           if (found) {
             specificChild = child;
             return;

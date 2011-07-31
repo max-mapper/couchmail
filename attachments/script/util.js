@@ -30,7 +30,8 @@ var util = function() {
   }
 
   function render( template, target, options ) {
-    if ( ! options ) options = {data: {}};
+    if ( !options ) options = {data: {}};
+    if ( !options.data ) options = {data: options};
     var html = $.mustache( $( "#" + template + "Template" ).html(), options.data ),
         targetDom = $( "#" + target );
     if( options.append ) {
@@ -38,6 +39,7 @@ var util = function() {
     } else {
       targetDom.html( html );
     }
+    if (template in app.after) app.after[template]();
   }
 
   function formatMetadata(data) {
@@ -86,17 +88,71 @@ var util = function() {
   function threadMessages(messages) {
     app.messages = {};
     messages.rows.map(function(message) {
-      app.messages[message.id] = message.value;
+      app.messages[message.value.messageId] = message.value;
     })
     
-    app.thread = mail.messageThread().thread(_.keys(app.messages).map(
+    return mail.messageThread().thread(_.keys(app.messages).map(
       function(message) { 
-        var id = message;
-        var message = app.messages[id];
-        return mail.message(message.subject, message.messageId, id, message.references);
+        var message = app.messages[message];
+        return mail.message(message.subject, message.messageId, message.references);
       }
     ));
   }
+  
+  function search(term, filter, options) {
+    var postData = {
+      "fields": ["bodytext", "_id", "subject"],
+      "size": 5,
+      "query" : {
+        "query_string" : {
+          "fields" : ["bodytext"],
+          "query" : term
+        }
+      }
+    };
+    if (filter) {
+      postData.filter = {
+        "query" : filter,
+        "_cache" : true
+      };
+    }
+    var qs = options ? '?'+$.param(options) : '';
+    return $.ajax({
+      url: app.config.baseURL + "api/search" + qs,
+      type: "POST",
+      dataType: "json",
+      data: JSON.stringify(postData),
+      dataFilter: function(data) {
+        data = JSON.parse(data);
+        var hits = $.map( data.hits.hits, function( item ) { return item.fields });
+        return JSON.stringify(hits);
+      }
+    }).promise();
+  }
+  
+  function bindAutocomplete(input, filter) {
+    input.keyup(function() {
+      input.siblings('.loading').show();
+      util.delay(function() {
+        util.search(input.val(), filter).then(function(results) {
+          input.siblings('.loading').hide();
+          util.render('searchResults', 'search-list', {results: results});
+        });
+      }, 1000)();
+    });
+  }
+  
+  // simple debounce adapted from underscore.js
+  function delay(func, wait) {
+    return function() {
+      var context = this, args = arguments;
+      var throttler = function() {
+        delete app.timeout;
+        func.apply(context, args);
+      };
+      if (!app.timeout) app.timeout = setTimeout(throttler, wait);      
+    };
+  };
   
   return {
     Emitter:Emitter,
@@ -105,6 +161,9 @@ var util = function() {
     formatMetadata:formatMetadata,
     plaintextToHTML: plaintextToHTML,
     getBaseURL:getBaseURL,
-    threadMessages: threadMessages
+    threadMessages: threadMessages,
+    search: search,
+    bindAutocomplete: bindAutocomplete,
+    delay: delay
   };
 }();
