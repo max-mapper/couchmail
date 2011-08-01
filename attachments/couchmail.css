@@ -28,7 +28,7 @@ input:-moz-placeholder { color:#fff; };
 .hotspotTwo{width:120px;height:120px;line-height:120px;-moz-border-radius:60px;-webkit-border-radius:60px;}
 .hotspotThree{width:90px;height:90px;line-height:90px;-moz-border-radius:45px;-webkit-border-radius:45px;}
 .inflow{box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;width:480px;background:#fafafa;float:left;border-right:1px solid #ccc;z-index:1;}
-.inflow .row{border-top:1px solid #ccc;background-color:#fff;margin:0;padding:0 0 10px;}
+.inflow .row{border-top:1px solid #ccc;background-color:#fff;margin:0;}
 .inflow .row .actions,.inflow .row .more,.widgets.fullMessage .row .actions,.row .more a.list.subject{float:right;font-size:11px;color:#888;}
 .inflow .row .more a,.row .more a.list.subject{font-weight:400;color:#000;text-decoration:none;}
 .inflow .row .more a:hover,.row .more a.list.subject:hover{text-decoration:underline;}
@@ -62,22 +62,21 @@ input:-moz-placeholder { color:#fff; };
 .widgets.fullMessage{position:relative;float:left;margin-right:0;top:0;right:0;width:480px;min-height:100%;padding-bottom:55px;}
 #convDisplay{float:left;margin-right:0;top:0;right:0;width:480px;background-color:#fafafa;z-index:0;background-image:url("i/ajax-loader.gif");background-repeat:no-repeat;background-position:10px 65px;min-height:81px;display:none;}
 #convDisplay .row{background-color:#fff;}
-.widgets.fullMessage .row{margin:0;padding:10px 0;}
-.widgets.fullMessage .row:first-child{border-top:1px solid #ccc;margin:0;padding:0;}
-.widgets.fullMessage .message{max-height:24px;float:left;cursor:pointer;}
-.widgets.fullMessage .subject{font-size:14px;font-weight:700;}
-.widgets.fullMessage .row.fullReply .c3 .messageBody{color:#333;overflow:hidden;line-height:18px;display:none;margin:10px 0 0;}
-.widgets.fullMessage .row.fullReply{border-top:1px dotted #ccc;}
-.widgets.fullMessage a.quoteToggle{text-decoration:none;font-size:11px;color:#888;}
-.widgets.fullMessage .row.fullReply .actions{font-size:12px;color:#000;display:block;margin:10px 0 0;}
-.widgets.fullMessage .quoteContent.quote{display:none;color:#ff5959;font-size:12px;border-left:1px solid #ff5959;margin:5px 0 0;padding:0 0 0 10px;}
-.conversation .from {width: 270px; overflow: hidden; height: 30px;}
+.row{margin:0;}
+.row:first-child{border-top:1px solid #ccc;margin:0;padding:0;}
+.message{float:left;cursor:pointer;}
+.subject{font-size:14px;font-weight:700;}
+.row.fullReply .c3 .messageBody{color:#333;overflow:hidden;line-height:18px;margin:10px 0 0;}
+.row.fullReply{border-top:1px dotted #ccc;}
+a.quoteToggle{text-decoration:none;font-size:11px;color:#888;}
+.row.fullReply .actions{font-size:12px;color:#000;display:block;margin:10px 0 0;}
+.quoteContent.quote{color:#ff5959;font-size:12px;border-left:1px solid #ff5959;margin:5px 0 0;padding:0 0 0 10px;}
+.conversation .from {max-width: 450px; overflow: hidden; height: 20px;}
 .date{font-size:11px;color:#888;font-weight:400;}
 .date.button:hover{color:#000;cursor:pointer;}
 .inflow .date{margin:0 0 0 160px;}
 .actions a{color:#888;text-decoration:none;font-size:11px;}
-.subject:empty:after{content:'tweeted...';}
-.name{color:#666;font-weight:700;}
+.name{color:#000;font-weight:700;}
 .name:empty:after{content:'unknown';}
 #header li.account{background-color:#ff5959;color:#fff;font-weight:700;-moz-border-radius:10px;-webkit-border-radius:10px;padding:2px 10px;}
 li.indented{font-size:12px;color:#666;margin:0 0 0 14px;}
@@ -86,9 +85,23 @@ li.indented{font-size:12px;color:#666;margin:0 0 0 14px;}
 .inflow .row:last-child,.widgets.fullMessage .row.fullReply:last-child{border-bottom:1px solid #ccc;}
 .inflow .row.highlight,#convDisplay .row.highlight{background-color:#ffffd9;}
 #convDisplay.visible,.widgets.fullMessage .row.fullReply:last-child .messageBody,.widgets.fullMessage .row.fullReply .c3.show .messageBody,.widgets.fullMessage .quoteContent.quote.expanded{display:block;}
+.message .from { margin-right: 5px }
+
+.mailResult {
+  background: url('images/mail.png') no-repeat 7px 8px;
+}
+
+.ircResult {
+  background: url('images/irc.png') no-repeat 7px 7px;
+}
+
+.resultText {max-width: 370px; display: block; float: left; overflow: hidden; margin-left: 20px !important}
+.resultDate {font-size: 11px; float: right}
 
 .account {position: absolute; top: 5px}
-#mail_search_container, #irc_search_container {width: 475px; float: left; height: 100%}
+#mail_search_container, #irc_search_container {width: 475px; height: 100%}
+#mail_search_container {float: left}
+#irc_search_container {float: right}
 .autocompleter .optionsMenu {
   position: absolute;
   top: 29px;
@@ -132,115 +145,6 @@ li.indented{font-size:12px;color:#666;margin:0 0 0 14px;}
   height: 29px;
   cursor: text;
 }
-
-.dropdown_filter {
-  font-family: "Geneva";
-  font-size: 14px;
-  text-decoration: none;
-  line-height: 27px;
-  padding: 0px 0px 0px 1px;
-  line-height: 50px;
-  height: 50px;
-  float: left;
-  }
-  .dropdown_filter .show_me {
-    color: #FFF;
-    float: left;
-    font-size: 14px;
-    margin: 0px 0px 0px 0px;
-    padding: 0 1px 0 18px; }
-  .dropdown_filter select {
-    width: 100px; 
-    line-height: 50px;
-    }
-  .dropdown_filter .menuContainer {
-    background: #0A5469 url('images/dropdown.png') no-repeat scroll 141px 3.5px;
-    color: black;
-    float: left;
-    height: 26px;
-    margin: 12px 0px 0px 9px;
-    padding: 0px;
-    width: 169px;
-    outline-style: none; }
-    .dropdown_filter .menuContainer .selected {
-      font-family: "Geneva";
-      font-size: 12px;
-      text-decoration: none;
-      color: white;
-      font-size: 14px;
-      font-weight: 200;
-      height: 29px;
-      line-height: 27px;
-      padding: 0 23px 0 0;
-      margin-left: 10px;
-      opacity: 1; }
-    .dropdown_filter .menuContainer div {
-      display: block;
-      padding: 0px 0px 0px 9px;
-      text-align: left !important;
-      width: 149px; }
-    .dropdown_filter .menuContainer ul.menu {
-      -webkit-box-shadow: 3px 3px 8px #555;
-      -moz-box-shadow: 3px 3px 8px #555;
-      box-shadow: 3px 3px 8px #555;
-      outline-style: none;
-      background: white;
-      color: black;
-      font-size: 0.85em;
-      height: auto;
-      left: 0;
-      list-style: none;
-      overflow: hidden;
-      position: absolute;
-      text-align: left;
-      top: 25px;
-      width: 169px;
-      z-index: 666; }
-      .dropdown_filter .menuContainer ul.menu {
-        margin: 0; padding: 0}
-      .dropdown_filter .menuContainer ul.menu * {
-        margin: 0;
-        padding: 0; }
-      .dropdown_filter .menuContainer ul.menu a {
-        color: black;
-        display: block;
-        text-decoration: none; }
-      .dropdown_filter .menuContainer ul.menu li {
-        border-top: 1px solid #4e647d;
-        background: #0A5469;
-        height: 29px; }
-        .dropdown_filter .menuContainer ul.menu li .menuHover {
-          background: #fffee5;
-          color: black;
-          cursor: default; }
-        .dropdown_filter .menuContainer ul.menu li .menuOptionTitle {
-          font-weight: bold; }
-          .dropdown_filter .menuContainer ul.menu li .menuOptionTitle li {
-            border-left: 1px solid #cccccc;
-            font-weight: normal; }
-          .dropdown_filter .menuContainer ul.menu li .menuOptionTitle ul {
-            margin: 3px 0 0; }
-        .dropdown_filter .menuContainer ul.menu li .menuSelFocus {
-          background-position: auto; }
-        .dropdown_filter .menuContainer ul.menu li .menuSelFocus {
-          cursor: default; }
-        .dropdown_filter .menuContainer ul.menu li a {
-          outline-style: none;
-          font-weight: lighter;
-          font-size: 14px;
-          height: 29px;
-          line-height: 27px;
-          color: white;
-          display: block;
-          padding-left: 10px; }
-          .dropdown_filter .menuContainer ul.menu li a:focus {
-            -moz-outline-style: none; }
-      .dropdown_filter .menuContainer ul.menu .hiLite {
-        color: white; }
-        .dropdown_filter .menuContainer ul.menu .hiLite a {
-          background: #650101;
-          color: white;
-          font-size: 14px; }
           
 ul.optionsMenu {
   -webkit-box-shadow: 3px 3px 8px #555;
@@ -269,9 +173,10 @@ ul.optionsMenu {
   ul.optionsMenu li {
     border-top: 1px solid #4e647d;
     background: #0A5469;
+    min-width: 450px;
     height: 29px; }
     ul.optionsMenu li .menuHover {
-      background: #fffee5;
+      background-color: #fffee5;
       color: black;
       cursor: default; }
     ul.optionsMenu li .optionsMenuSelFocus {

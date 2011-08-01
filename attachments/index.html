@@ -61,105 +61,60 @@
     <div id="irc_search_container"></div>
   </div>
 
-<script id="messagesTemplate" type="text/mustache">
-  {{#messages}}
-  <div class="row convSummary" data-id="{{id}}">
-    <div class="c3">
-      <span class="date">{{date}}</span>
-      <span class="actions">hide delete</span>
-    </div>
-    <div class="c1">
-      <div class="avatar"><!----></div>
-      <div class="name">{{from}}</div>
-      <div class="twitterActions">
-        <li>reply</li><li>forward</li><li>★</li>
-      </div>
-    </div>
-    <div class="c2">
-      <div class="subject"><span class="list subject">{{subject}}</span></div>
-      <div class="messageBody">{{{body}}}</div>
-      {{#replies}}
-      <div class="replies">
-        <div class="reply">
-          <div class="arrow"></div>
-          <div class="messageReply noArrow"><span class="name">max ogden</span>{{body}}</div>
-        </div>
-      </div>
-      {{/replies}}
-    </div> 
-    {{#replyCount}}
-    <div class="c3">
-      <div class="more"><a href="#">view all replies (<span class="totalReplies">{{count}}</span>)</a></div>
-    </div>
-    {{/replyCount}}
-  </div>
-  </div>
-  {{/messages}}
-</script>
-
-<script id="conversationTemplate" type="text/mustache">
+<script id="ircTemplate" type="text/mustache">
   <div class="conversation template widgets fullMessage" data-id="fullConversation">
     <div class="row">
       <div class="c2">
-        <span class="date button">move conversation &#9660;</span>
-      </div>
-      <div class="c1">
-        <div class="actions"><a href="#">hide delete</a></div>
+        <span class="date button">irc log excerpt &#9660;</span>
       </div>
       <div class="c3">
-        <span class="subject">{{subject}}</span>
+        <span class="subject">#couchdb&nbsp;<span class="timeago" title="{{date}}">on {{date}}</span></span>
       </div>
     </div>
     {{#messages}}
       <div class="row fullReply">
         <div class="message" onclick="$(this).next().toggleClass('show')">
-          <div class="c2">
-            <div class="avatar"></div>
-            <div class="from name">{{from}} <span class="date">on {{date}}</span></div>
-          </div>
-          <div class="c1">
-            <div class="actions"><a class="fullConvClose" href="#close">close</a></div>
-          </div>
-        </div>
-        <div class="c3"> 
-          <div class="messageBody">
-              <a class="quoteToggle" href="#quoteToggle">Show Quote</a>
-              <!-- investigate type class-->
-              <div class="quoteContent">{{{body}}}</div>
-            <div class="actions">reply forward</div>
-          </div>
+          <span class="from name">&lang;{{nick}}&rang;</span><span class="quoteContent">{{message}}</span>
         </div>
       </div>
     {{/messages}}
   </div>
 </script>
 
-<script id="messageTemplate" type="text/mustache">
+<script id="mailTemplate" type="text/mustache">
+  {{#messages}}
   <div class="row fullReply">
-    <div class="message" onclick="$(this).next().toggleClass('show')">
-      <div class="c2">
-        <div class="avatar"></div>
-        <div class="from name">{{from}} <span class="date">on {{date}}</span></div>
-      </div>
-      <div class="c1">
-        <div class="actions"><a class="fullConvClose" href="#close">close</a></div>
-      </div>
+    <div class="message">
+      <div class="from name">{{from}}<span class="timeago" title="{{date}}">on {{date}}</span></div>
     </div>
     <div class="c3"> 
       <div class="messageBody">
-          <a class="quoteToggle" href="#quoteToggle">Show Quote</a>
-          <!-- investigate type class-->
-          <div class="quoteContent">{{{body}}}</div>
-        <div class="actions">reply forward</div>
+        <!-- investigate type class here -->
+        <div class="quoteContent">{{{body}}}</div>
       </div>
     </div>
   </div>
+  {{/messages}}
 </script>
 
 <script id="searchResultsTemplate" type="text/mustache">
   {{#results}}
-    {{#mail}}<li data-icon="false"><a data-id="{{_id}}"class="mailResult menuOption">{{subject}}</a></li>{{/mail}}
-    {{#irc}}<li data-icon="false"><a data-id="{{_id}}"class="ircResult menuOption">{{message}}</a></li>{{/irc}}
+    {{#mail}}
+    <li data-icon="false">
+      <a data-id="{{_id}}" data-type="mail" class="mailResult menuOption">
+        <span class="resultText">{{subject}}</span>
+        <span class="resultDate timeago" title="{{date}}"></span>
+      </a>
+    </li>
+    {{/mail}}
+    {{#irc}}
+    <li data-icon="false">
+      <a data-id="{{_id}}" data-type="irc" class="ircResult menuOption">
+        <span class="resultText">{{message}}</span>
+        <span class="resultDate timeago" title="{{date}}"></span>
+      </a>
+    </li>
+    {{/irc}}
   {{/results}}
 </script>
 

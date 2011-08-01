@@ -101,8 +101,8 @@ var util = function() {
   
   function search(term, route, fields) {
     if (!fields) fields = [];
-    var returnFields = _.clone(fields)
-    returnFields.push("_id")
+    var returnFields = _.clone(fields);
+    returnFields = returnFields.concat(['_id', 'date']);
     var postData = {
       "fields": returnFields,
       "size": 20,
@@ -126,6 +126,36 @@ var util = function() {
     });
   }
   
+  siblings = {
+    irc: function(message) {
+      var dfd = $.Deferred();
+      var url = app.config.baseURL + "api/irc/_all_docs?" + $.param({"include_docs": true, "limit": 20, "startkey": '"' + message._id + '"'});
+      couch.get(url).then(function(messages) {
+        var messages = _.map(messages.rows, function(row) {
+          return row.doc;
+        });
+        dfd.resolve(messages);        
+      })
+      return dfd.promise();
+    },
+    mail: function(message) {
+      var dfd = $.Deferred();
+      var url = app.config.baseURL + "api/mail/_all_docs?" + $.param({"include_docs": true, "limit": 1, "startkey": '"' + message._id + '"'});
+      couch.get(url).then(function(messages) {
+        var messages = _.map(messages.rows, function(row) {
+          var doc = row.doc;
+          return {
+            from: doc.headers.from[0],
+            body: doc.parts[0].bodytext.replace(/\n/ig, '<br>'),
+            date: doc.headers.date[0]
+          };
+        });
+        dfd.resolve(messages);      
+      })
+      return dfd.promise();
+    }
+  }
+  
   var searchRoutes = {
     mail_search: ["bodytext", "subject"],
     irc_search: ["message"]
@@ -143,12 +173,14 @@ var util = function() {
           results = _.map(results, function(result) {
             var o = {};
             o[type] = [result];
+            if (_.isArray(o[type][0].date)) o[type][0].date = o[type][0].date[0]; // todo ugh
+            o.sortKey = o[type][0].date; // for easier sorting later
             return o;
           })
-          currentResults.push(results);
+          currentResults = currentResults.concat(results);
           currentResults = _.sortBy(currentResults, function(result) {
-            return result;
-          })
+            return result.sortKey;
+          }).reverse()
           util.render('searchResults', 'search-list', {results: currentResults});          
         }
         var requests = _.map(_.keys(searchRoutes), function(route) {
@@ -188,6 +220,7 @@ var util = function() {
     getBaseURL:getBaseURL,
     threadMessages: threadMessages,
     search: search,
+    siblings: siblings,
     bindAutocomplete: bindAutocomplete,
     delay: delay
   };

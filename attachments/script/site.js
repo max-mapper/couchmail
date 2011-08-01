@@ -20,18 +20,6 @@ app.handler = function(route) {
 app.after = {
   home: function() { 
     util.bindAutocomplete($('#search'))   
-    
-    // msg.latest().then(function(conversations) {
-    //   console.log(conversations)
-    //   var firsts = conversations.children.map(function(child) {
-    //     if (child.message) {
-    //       return child.message;
-    //     } else if (child.children.length > 0) {
-    //       return child.children[0].message;
-    //     }
-    //   })
-    //   util.render('messages', 'messages', {data: {messages: firsts}});
-    // })
   },
   messages: function() {
     $( '.timeago' ).timeago();
@@ -42,38 +30,28 @@ app.after = {
       e.preventDefault();
     })
   },
-  conversation: function(messageId) {
-    function renderConversation() {
-      var conversation = app.thread.getConversation(messageId);
-      conversation = conversation.map(function(message) {
-        return app.messages[message.id];
-      })
-      _.each(conversation, function(message) {
-        message.body = util.plaintextToHTML(message.body);
-      })
-      if (conversation) util.render('conversation', 'convDisplay', {data: {subject: conversation[0].subject, messages: conversation}});
-    }
-    if (app.thread) {
-      renderConversation();
-    } else {
-      msg.latest().then(function(conversations) {
-        renderConversation();
-      })
-    }
-  },
   searchResults: function() {
+    $( '.timeago' ).timeago();
     $('.menuOption').hover(
-      function(e) { $(e.target).addClass('menuHover')}
-     ,function(e) { $(e.target).removeClass('menuHover')}
+      function(e) { $(this).addClass('menuHover')}
+     ,function(e) { $(this).removeClass('menuHover')}
     );
     $('.menuOption').click(function(e) {
-      var docid = $(e.target).attr('data-id');
-      couch.get(app.config.baseURL + "api/" + docid).then(function(message) {
-        $('#messageDisplay').html(JSON.stringify(message))
+      var docid = $(this).attr('data-id'),
+        type = $(this).attr('data-type')
+      couch.get(app.config.baseURL + "api/" + type + "/" + docid).then(function(message) {
+        $('.splash').hide()
+        $('#' + type + '_search_container').html("loading...")
+        $('.optionsMenu').html("")
+        util.siblings[type](message).then(function(messages) {
+          util.render(type, type + '_search_container', {date: messages[0].date, messages: messages})
+        })
       })
       return false;
     })
-  }
+  },
+  mail: function() { $( '.timeago' ).timeago() },
+  irc: function() { $( '.timeago' ).timeago() }
 }
 
 app.s = $.sammy(function () {

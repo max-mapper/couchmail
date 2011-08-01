@@ -1,5 +1,7 @@
 # CouchMail CouchApp
 
+Disclaimer: This is currently very experimental. I'm using it as a mailing list archive search engine. Some background:
+
 Once upon a time there was a wonderful group of folks at Mozilla who designed a product called Raindrop. Sadly Raindrop never caught on, but their [design](http://www.flickr.com/photos/43332657@N06/) and [code](https://wiki.mozilla.org/Raindrop/Hacking) are available under the Mozilla Public License. 
 
 In general the idea behind this project is to make a web based messaging client that is really easy to hack on. To seed that idea I have started to revive the design vision behind Raindrop and implement it using Node.js, CouchDB and lots of client side javascript :) I also hope to implement a somewhat generic UI for [ActivityStreams JSON v1.0](http://activitystrea.ms/head/json-activity.html).
