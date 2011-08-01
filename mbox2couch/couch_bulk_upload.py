@@ -11,6 +11,6 @@ except ImportError:
 JSON_MBOX = sys.argv[1]  # i.e. enron.mbox.json
 
 server = couchdb.Server('http://localhost:5984')
-db = server["couchdb-user-mail"]
+db = server["couch-irc-logs"]
 docs = json.loads(open(JSON_MBOX).read())
 db.update(docs, all_or_nothing=True)

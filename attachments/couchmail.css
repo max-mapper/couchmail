@@ -2,7 +2,7 @@
 html{min-height:100%;height:100%;background:#fafafa;}
 body{width:100%;min-height:100%;height:100%;background-color:#fafafa;overflow-y:scroll;position:relative;}
 #background{width:100%;min-height:100%;height:100%;position:fixed;top:0;left:0;z-index:0;}
-#wrapper{width:962px;padding-top:45px;left:50%;float:left;font-family:"Helvetica Neue", Helvetica, Arial, Sans-serif;font-size:12px;line-height:24px;position:relative;z-index:1;border-left:1px solid #ccc;border-right:1px solid #ccc;min-height:100%;background-color:#fafafa;margin:0 auto 0 -480px;}
+#wrapper{width:962px;padding-top:45px;left:50%;float:left;font-family:"Helvetica Neue", Helvetica, Arial, Sans-serif;font-size:12px;line-height:24px;position:relative;z-index:1;border-left:1px solid #ccc;border-right:1px solid #ccc;min-height:100%;background-color:#EAE8E9;margin:0 auto 0 -480px;}
 #header{width:962px;position:fixed;top:0;left:50%;margin-left:-480px;background-color:#fafafa;z-index:2;border:1px solid #ccc;border-top:none;}
 #header li.account{display:inline;margin-right:10px;color:#888;}
 .fixed{position:fixed;}
@@ -14,6 +14,9 @@ body{width:100%;min-height:100%;height:100%;background-color:#fafafa;overflow-y:
 .c4{width:620px;}
 .c5{width:780px;}
 .c6{width:940px;}
+.placeholder {color:#fff !important;}
+::-webkit-input-placeholder  { color:#fff; };
+input:-moz-placeholder { color:#fff; };
 .summary{float:left;background-color:#f2f2f2;-moz-border-radius:5px;-webkit-border-radius:5px;margin:0 0 50px;}
 .summary .title{font-size:18px;color:#888;}
 .summary .close{text-align:right;}
@@ -84,17 +87,18 @@ li.indented{font-size:12px;color:#666;margin:0 0 0 14px;}
 .inflow .row.highlight,#convDisplay .row.highlight{background-color:#ffffd9;}
 #convDisplay.visible,.widgets.fullMessage .row.fullReply:last-child .messageBody,.widgets.fullMessage .row.fullReply .c3.show .messageBody,.widgets.fullMessage .quoteContent.quote.expanded{display:block;}
 
-
+.account {position: absolute; top: 5px}
+#mail_search_container, #irc_search_container {width: 475px; float: left; height: 100%}
 .autocompleter .optionsMenu {
   position: absolute;
-  top: 37px;
+  top: 29px;
   right: 45px;
   min-width: 225px;
   max-width: 500px;
 }
 
 .autocompleter .loading {
-  display: none; width: 16px; height: 16px; background-image: url('images/loader-teal.gif'); position: absolute; top: 17px; right: 55px;
+  display: none; width: 16px; height: 16px; background-image: url('images/loader-teal.gif'); position: absolute; top: 12px; right: 55px;
 }
 
 .autocompleter {float: right; margin-right: 50px; display: inline-block;}
@@ -103,7 +107,7 @@ li.indented{font-size:12px;color:#666;margin:0 0 0 14px;}
   color: white;
   height: 26px;
   line-height: 14px;
-  margin: 12px 0px 0px 9px;
+  margin: 5px 0px 5px 9px;
   padding: 0px 0px 0px 25px;
   width: 200px;
   outline-style: none;

@@ -99,26 +99,22 @@ var util = function() {
     ));
   }
   
-  function search(term, filter, options) {
+  function search(term, route, fields) {
+    if (!fields) fields = [];
+    var returnFields = _.clone(fields)
+    returnFields.push("_id")
     var postData = {
-      "fields": ["bodytext", "_id", "subject"],
-      "size": 5,
+      "fields": returnFields,
+      "size": 20,
       "query" : {
         "query_string" : {
-          "fields" : ["bodytext"],
+          "fields" : fields,
           "query" : term
         }
       }
     };
-    if (filter) {
-      postData.filter = {
-        "query" : filter,
-        "_cache" : true
-      };
-    }
-    var qs = options ? '?'+$.param(options) : '';
     return $.ajax({
-      url: app.config.baseURL + "api/search" + qs,
+      url: app.config.baseURL + "api/" + route,
       type: "POST",
       dataType: "json",
       data: JSON.stringify(postData),
@@ -127,17 +123,35 @@ var util = function() {
         var hits = $.map( data.hits.hits, function( item ) { return item.fields });
         return JSON.stringify(hits);
       }
-    }).promise();
+    });
   }
   
-  function bindAutocomplete(input, filter) {
+  var searchRoutes = {
+    mail_search: ["bodytext", "subject"],
+    irc_search: ["message"]
+  }
+  
+  function bindAutocomplete(input) {
     input.keyup(function() {
       input.siblings('.loading').show();
       util.delay(function() {
-        util.search(input.val(), filter).then(function(results) {
+        var searchRoute = input.attr('data-route')
+          , term = input.val()
+          ;
+        function showResults(results, template) {
+          util.render(template, template + "_container", {results: results});
+        }
+        var requests = _.map(_.keys(searchRoutes), function(route) {
+          var req = util.search(term, route, searchRoutes[route])
+          req.then(function(results) {
+            showResults(results, route);
+          })
+          return req;
+        })
+        $.when.call(requests)
+        .done(function() {
           input.siblings('.loading').hide();
-          util.render('searchResults', 'search-list', {results: results});
-        });
+        })
       }, 1000)();
     });
   }

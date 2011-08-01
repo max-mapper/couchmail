@@ -43,48 +43,21 @@
 <body>
   <div id="background"></div>
   <div id="wrapper">
-    <div id="messageDisplay"></div>
     <div id="header">
-        <div class="autocompleter">
-          <input id="search" placeholder="Search" />
-          <div class="loading"></div>
-          <ul id="search-list" class="optionsMenu search-list" data-role="listview" data-inset="true" data-theme="c"></ul>
-        </div>
-        <div class="c2">
-          <li class="account">Messages</li>
-          <!-- <li>compose</li>
-          <li>organize</li> -->
-        </div>
-        <div class="c3 logo">
-        </div>
+      <div class="autocompleter">
+        <input id="search" data-route="irc_search" placeholder="Search" />
+        <div class="loading"></div>
+        <ul id="search-list" class="optionsMenu search-list" data-role="listview" data-inset="true" data-theme="c"></ul>
       </div>
-    </div>
-
-    <div id="messages" class="inflow templateContainer">     
-    </div>
-
-    <div class="widgets hidden">
-      <div class="row">
-        <div class="c3 accounts">
-          <ul>
-            <li><span class="selected">Inflow</span></li>
-            <!-- <li><span class="placeholder">top level option</span></li>
-              <li class="indented">indented option</li> -->
-          </ul>
-        </div>
+      <div class="c2">
+        <li class="account">CouchDB User Mailing List/IRC Archive</li>
+        <!-- <li>compose</li>
+        <li>organize</li> -->
       </div>
-
-      <!-- <div class="row">
-        <div class="c3 folders">
-          <div class="title">submenu</div>
-            <li class="pinned">has dot</li>
-            <li>no dot</li>
-        </div>
-      </div> -->
+      <div class="c3 logo"></div>
     </div>
-
-    <div id="convDisplay" class="visible">
-    </div>
+    <div id="mail_search_container"></div>
+    <div id="irc_search_container"></div>
   </div>
 
 <script id="messagesTemplate" type="text/mustache">
@@ -182,9 +155,15 @@
   </div>
 </script>
 
-<script id="searchResultsTemplate" type="text/mustache">
+<script id="mail_searchTemplate" type="text/mustache">
   {{#results}}
   <li data-icon="false"><a data-id="{{_id}}"class="menuOption">{{subject}}</a></li>
+  {{/results}}
+</script>
+
+<script id="irc_searchTemplate" type="text/mustache">
+  {{#results}}
+  <li data-icon="false"><a data-id="{{_id}}"class="menuOption">{{message}}</a></li>
   {{/results}}
 </script>
 
