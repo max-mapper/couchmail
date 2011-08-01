@@ -43,6 +43,7 @@
 <body>
   <div id="background"></div>
   <div id="wrapper">
+    <div class="splash" style="margin: 0 auto; width: 537px"><img class="couch" src="images/couch.png"></div>
     <div id="header">
       <div class="autocompleter">
         <input id="search" data-route="irc_search" placeholder="Search" />
@@ -155,15 +156,10 @@
   </div>
 </script>
 
-<script id="mail_searchTemplate" type="text/mustache">
+<script id="searchResultsTemplate" type="text/mustache">
   {{#results}}
-  <li data-icon="false"><a data-id="{{_id}}"class="menuOption">{{subject}}</a></li>
-  {{/results}}
-</script>
-
-<script id="irc_searchTemplate" type="text/mustache">
-  {{#results}}
-  <li data-icon="false"><a data-id="{{_id}}"class="menuOption">{{message}}</a></li>
+    {{#mail}}<li data-icon="false"><a data-id="{{_id}}"class="mailResult menuOption">{{subject}}</a></li>{{/mail}}
+    {{#irc}}<li data-icon="false"><a data-id="{{_id}}"class="ircResult menuOption">{{message}}</a></li>{{/irc}}
   {{/results}}
 </script>
 

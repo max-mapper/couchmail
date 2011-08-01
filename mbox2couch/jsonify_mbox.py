@@ -5,6 +5,7 @@ import mailbox
 import email
 import quopri
 from BeautifulSoup import BeautifulSoup
+import dateutil.parser as parser # pip install python-dateutil==1.5 for python2.6
 
 try:
     import jsonlib2 as json  # much faster then Python 2.6.x's stdlib
@@ -28,7 +29,12 @@ def cleanContent(msg):
 def jsonifyMessage(msg):
     headers = {}
     for (k, v) in msg.items():
-        headers[k.lower()] = [v.decode('utf-8', 'ignore')]
+      	k = k.lower()
+        v = v.decode('utf-8', 'ignore')
+        headers[k] = [v]
+        if k == "date":
+      	    date = parser.parse(v)
+            headers['date'] = [date.isoformat()]
     
     json_msg = {'parts': [], 'headers': headers}
     

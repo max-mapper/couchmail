@@ -20,6 +20,7 @@ app.handler = function(route) {
 app.after = {
   home: function() { 
     util.bindAutocomplete($('#search'))   
+    
     // msg.latest().then(function(conversations) {
     //   console.log(conversations)
     //   var firsts = conversations.children.map(function(child) {

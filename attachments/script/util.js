@@ -133,18 +133,29 @@ var util = function() {
   
   function bindAutocomplete(input) {
     input.keyup(function() {
+      var currentResults = [];
       input.siblings('.loading').show();
       util.delay(function() {
         var searchRoute = input.attr('data-route')
           , term = input.val()
           ;
-        function showResults(results, template) {
-          util.render(template, template + "_container", {results: results});
+        function showResults(results, type) {
+          results = _.map(results, function(result) {
+            var o = {};
+            o[type] = [result];
+            return o;
+          })
+          currentResults.push(results);
+          currentResults = _.sortBy(currentResults, function(result) {
+            return result;
+          })
+          util.render('searchResults', 'search-list', {results: currentResults});          
         }
         var requests = _.map(_.keys(searchRoutes), function(route) {
           var req = util.search(term, route, searchRoutes[route])
           req.then(function(results) {
-            showResults(results, route);
+            var type = route.split('_')[0];
+            showResults(results, type);
           })
           return req;
         })
