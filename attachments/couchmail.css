@@ -78,7 +78,7 @@ a.quoteToggle{text-decoration:none;font-size:11px;color:#888;}
 .actions a{color:#888;text-decoration:none;font-size:11px;}
 .name{color:#000;font-weight:700;}
 .name:empty:after{content:'unknown';}
-#header li.account{background-color:#ff5959;color:#fff;font-weight:700;-moz-border-radius:10px;-webkit-border-radius:10px;padding:2px 10px;}
+#header li.account{background-color:#ff5959;color:#fff;font-weight:700;-moz-border-radius:10px;-webkit-border-radius:10px;padding:1px 10px;}
 li.indented{font-size:12px;color:#666;margin:0 0 0 14px;}
 .hidden,.inflow .replies > .reply:nth-child(n+3),.arrow,.inflow .row .replies:empty,.inflow .row.read .replies,.fullConvClose,.widgets.fullMessage .quoteContent.quote br:first-child{display:none;}
 .summary a,.inflow .row .more,.row .more list.subject,.inflow .row .subject a{color:#000;text-decoration:none;}
@@ -86,7 +86,7 @@ li.indented{font-size:12px;color:#666;margin:0 0 0 14px;}
 .inflow .row.highlight,#convDisplay .row.highlight{background-color:#ffffd9;}
 #convDisplay.visible,.widgets.fullMessage .row.fullReply:last-child .messageBody,.widgets.fullMessage .row.fullReply .c3.show .messageBody,.widgets.fullMessage .quoteContent.quote.expanded{display:block;}
 .message .from { margin-right: 5px }
-
+.forkme {position: absolute; bottom: 5px; right: 5px; font-family: Helvetica, Arial, sans-serif; font-size: 11px}
 .mailResult {
   background: url('images/mail.png') no-repeat 7px 8px;
 }
