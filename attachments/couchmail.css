@@ -86,7 +86,7 @@ li.indented{font-size:12px;color:#666;margin:0 0 0 14px;}
 .inflow .row.highlight,#convDisplay .row.highlight{background-color:#ffffd9;}
 #convDisplay.visible,.widgets.fullMessage .row.fullReply:last-child .messageBody,.widgets.fullMessage .row.fullReply .c3.show .messageBody,.widgets.fullMessage .quoteContent.quote.expanded{display:block;}
 .message .from { margin-right: 5px }
-.forkme {position: absolute; bottom: 5px; right: 5px; font-family: Helvetica, Arial, sans-serif; font-size: 11px}
+.forkme {float: right; font-family: Helvetica, Arial, sans-serif; font-size: 11px}
 .mailResult {
   background: url('images/mail.png') no-repeat 7px 8px;
 }
