@@ -10,19 +10,17 @@ Additionally, this is a [small data](http://smalldata.org) project, which means 
 
 ## Hacking on it/beta testing
 
-CouchMail works and you can test it out today! The only thing you will need is a public server running [haraka-couchdb](https://github.com/maxogden/haraka-couchdb). Once you get it installed it will save all incoming mail in CouchDB.
+CouchMail is a couchapp! You will first need some JSON formatted emails in your couch for this app to make any sense. You can find some example data [here](http://max.ic.ht/couch-user-mail). 
 
 To install CouchMail in your Couch:
 
     # clone this repo
     git clone git://github.com/maxogden/couchmail.git
     cd couchmail
-    npm install couchapp
-    couchapp push app.js http://localhost:5984/mail_myusername
+    npm install -g couchapp
+    couchapp push app.js http://localhost:5984/somedatabase
     
-Now you can open CouchMail by visiting `http://localhost:5984/mail_myusername/_design/couchmail/index.html`
-    
-The database name in the last line will be the username of the person you are sending mail to on your `haraka-couchdb` server, e.g. if you send mail to `bob@awesome.com` then you will want to install CouchMail in the database called `http://localhost:5984/mail_bob` in order to see his messages. Once you get `haraka-couchdb` running on your server and you start sending emails to it then databases will be automatically created for each new user. You can check the database names by viewing Futon, the CouchDB web administration tool which is available by default at `http://127.0.0.1:5984/_utils`.
+Now you can open CouchMail by visiting `http://localhost:5984/somedatabase/_design/couchmail/index.html`
 
 License
 -------
